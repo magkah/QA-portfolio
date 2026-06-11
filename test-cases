@@ -1,1 +1,153 @@
+# Analytics & Monetization – Test Cases
+
+## Scope
+Validation of analytics and monetization parameters in playback and ad-related requests.
+
+---
+
+## TC-AN-001 – Playback request parameters
+
+**Steps:**
+1. Launch monetized content (e.g. streaming channel / VOD).
+2. Open DevTools → Network.
+3. Find `playback` request.
+
+**Verify:**
+- Parameters are present (e.g. device ID, session ID, consent)
+- Values are correctly populated
+
+**Expected:**
+All required analytics parameters are included and valid.
+
+---
+
+## TC-AN-002 – URL parameter propagation
+
+**Steps:**
+1. Launch playback.
+2. Open player/app URL.
+3. Compare request vs URL parameters.
+
+**Verify:**
+- Key parameters are propagated (e.g. device ID, consent, session)
+- Values match across request and URL
+
+**Expected:**
+Parameters are consistent between request and playback URL.
+
+---
+
+## TC-AN-003 – Partner content request validation
+
+**Steps:**
+1. Launch partner-provided content.
+2. Inspect playback request.
+
+**Verify:**
+- Content ID / provider info present
+- Region / language parameters included
+- Consent flag present
+
+**Expected:**
+All partner-related parameters are correctly passed.
+
+---
+
+## TC-AN-004 – Ad request parameters
+
+**Steps:**
+1. Start playback with ads enabled.
+2. Locate ad/video request in DevTools.
+
+**Verify:**
+- Device identifiers present
+- App metadata included (app name, version, device type)
+- Privacy fields (GDPR/consent) present
+
+**Expected:**
+Ad request contains complete and valid analytics data.
+
+---
+
+## TC-AN-005 – API / playback configuration validation
+
+**Steps:**
+1. Start playback.
+2. Inspect configuration request.
+
+**Verify:**
+- Content metadata present
+- App/device data included
+- Tracking parameters correctly formatted
+
+**Expected:**
+Configuration request contains all required analytics fields.
+
+---
+
+## TC-AN-006 – Device ID (DLID) propagation
+
+**Steps:**
+1. Capture device ID from system/storage.
+2. Launch playback.
+3. Inspect request and URL.
+
+**Verify:**
+- Same device ID appears in all requests
+- Device ID is consistent across sessions
+
+**Expected:**
+Device ID is correctly propagated in analytics and ad requests.
+
+---
+
+## TC-AN-007 – Device ID persistence
+
+**Steps:**
+1. Capture device ID.
+2. Restart app / reload session.
+3. Launch playback again.
+
+**Verify:**
+- Device ID remains unchanged
+
+**Expected:**
+Device ID persists across sessions.
+
+---
+
+## TC-AN-008 – Device ID reset
+
+**Steps:**
+1. Perform factory reset / clear data.
+2. Capture new device ID.
+3. Launch playback.
+
+**Verify:**
+- New device ID is generated
+- New value is used in requests
+
+**Expected:**
+Device ID is regenerated after reset and used consistently.
+
+---
+
+## TC-AN-009 – Consent-dependent behavior
+
+**Steps:**
+1. Enable personalized ads.
+2. Launch playback and capture requests.
+3. Disable personalized ads.
+4. Repeat playback.
+
+**Verify:**
+- Consent-related fields change accordingly
+
+**Expected:**
+Analytics/ad parameters reflect current user consent state.
+
+---
+
+
+
 
