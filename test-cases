@@ -147,6 +147,156 @@ Device ID is regenerated after reset and used consistently.
 Analytics/ad parameters reflect current user consent state.
 
 ---
+# Retry & Error Policy – Test Cases
+
+## Scope
+Validation of retry, backoff, and error handling behavior for API requests in frontend applications.
+
+---
+
+## TC-RP-001 – No retry for non-retriable requests
+
+**Steps:**
+1. Open application
+2. Trigger API request
+3. Block the request in DevTools/Mitm Proxy
+4. Refresh or repeat action
+
+**Expected:**
+- Request is not retried after failure (url)  
+
+---
+
+## TC-RP-002 – No retry and no UI feedback for selected requests
+
+**Steps:**
+1. Trigger API request
+2. Block the request
+3. Observe application behavior
+
+**Expected:**
+- No retry is executed  
+- No network check is performed  
+- No error popup is displayed 
+
+---
+
+## TC-RP-003 – Retry using standard retry policy
+
+**Steps:**
+1. Trigger API request
+2. Block the request
+3. Observe retry behavior
+
+**Expected:**
+- Request is retried according to standard retry policy  
+- Retry flow includes:
+  - initial timeout  
+  - delay before retry  
+  - second attempt   
+
+---
+
+## TC-RP-004 – User-facing error after failed action
+
+**Steps:**
+1. Perform user action (e.g. save / rate / modify item)
+2. Block related API request
+3. Repeat action
+
+**Expected:**
+- Request is not retried  
+- Error popup is displayed  
+- User is informed that action failed  
+
+---
+
+## TC-RP-005 – Mixed retry behavior depending on request type
+
+**Steps:**
+1. Trigger different API requests
+2. Block each request
+3. Observe behavior
+
+**Expected:**
+- Some requests:
+  - are not retried  
+- Some requests:
+  - are retried using retry policy  
+
+---
+
+## TC-RP-006 – Custom retry policy validation
+
+**Steps:**
+1. Trigger API request with custom retry configuration
+2. Block request
+3. Observe retry flow
+
+**Expected:**
+- Retry count is limited (e.g. 2 retries)  
+- Delay between retries follows configured value  
+- Timeout is short and controlled 
+
+---
+
+## TC-RP-007 – Error code dependent behavior
+
+**Steps:**
+1. Trigger API request
+2. Simulate different HTTP response codes (devtools/Mitmproxy)
+
+**Expected:**
+- 400 → no retry  
+- 401 → token refresh + retry  
+- 403 → restricted flow / special handling  
+- 429 → switch to limited mode  
+- 501 → no retry  
+
+---
+
+## TC-RP-008 – Standard retry timing behavior
+
+**Steps:**
+1. Trigger API request
+2. Block request
+3. Measure retry timing
+
+**Expected:**
+- Retry occurs after delay  
+- Retry sequence includes:
+  - first request timeout  
+  - delay (~milliseconds range)  
+  - second request attempt  
+
+---
+
+## TC-RP-009 – Exponential retry policy for specific requests
+
+**Steps:**
+1. Trigger API request
+2. Simulate repeated failure
+3. Observe retry pattern
+
+**Expected:**
+- Request is retried multiple times  
+- Delay increases between attempts  
+- Retry count is limited  
+
+---
+
+## TC-RP-010 – Network failure handling with UI impact
+
+**Steps:**
+1. Trigger API request
+2. Block request
+3. Observe UI behavior
+
+**Expected:**
+- System performs network check  
+- Error popup is displayed OR  
+- Application switches to limited mode  
+ 
 
 
 
