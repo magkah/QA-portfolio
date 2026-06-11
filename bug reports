@@ -1,4 +1,5 @@
-1. [Analytics] AppConsumptinEvents not received for program change on a channel
+DEFECT 1
+[Analytics] AppConsumptinEvents not received for program change on a channel
 Details
 Type: Bug
 Priority: Major
