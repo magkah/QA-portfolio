@@ -1,1 +1,60 @@
+1. [Analytics] AppConsumptinEvents not received for program change on a channel
+Details
+Type: Bug
+Priority: Major
+Affects Version/s: xxx
+Labels:xx, xx
+Reproducibility:100%
+Severity:S2-Major
 
+Regression
+Yes, last working version xxx
+ 
+Reproducibility
+Always
+ 
+Description
+According to <spec link>
+ 
+there should be an AppConsumptionEvent received from <app name> on every program change on a channel. Currently the event is visible in x tab for channel changes but not for a program change.
+ 
+Has the logic been changed recently?
+ 
+How to reproduce
+1. Tune to any x channel (eg.) that has Program Guide available and wait for the current program to finish an a new one to start.
+ 
+2. Verify if correct events were sent from x  - Terminate for the finished program and Launch for the new one
+ 
+Expected behavior
+1. Current program has finished and a new one started.
+ 
+2. Correct events were sent to Segment. The Terminate event contained itemId for the finished program and the Launch event contained itemId for the new program.
+ 
+Actual behavior
+ 
+1. Current program has finished and a new one started.
+ 
+2. There is a "report" event is visible in Snap Touch tab in devtools, when program changes, but I can't find corresponding appConsuptionEvents anywhere else, which might indicate that this event is not received in Segment.
+ 
+eg.
+ 
+<url>
+ 
+
+{code}
+ 
+How to recover
+N/a
+ 
+Additional
+ 
+
+Device: xx
+SW/HW versions: xx
+FW: xx
+Country: xx
+Language: xx
+Device:xx
+HSN: xx
+Env: Staging
+DLID: xxx
