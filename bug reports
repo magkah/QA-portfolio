@@ -59,3 +59,55 @@ Device:xx
 HSN: xx
 Env: Staging
 DLID: xxx
+
+DEFECT 2
+[Retry/Error] No pop-up shown when playbackInstructions call fails
+ 
+Priority: P3-Medium
+Affects Version/s:xx
+Component/s:xx
+Labels: xx
+Template:
+Reproducibility:Always
+Regression:Unknown
+Severity:S3-Medium
+
+
+*Regression*
+Unknown 
+
+*Reproducibility*
+Always 
+
+*Description*
+According to spec|,url. when playbackInstructions call fails, user should see a pop up with the information that his action was not successful. Currently no pop up is shown.
+
+*How to reproduce*
+1. Go to portal tab and invoke *playbackInstructions* call (enter any assets content screen and click provider button, starts a live channel or any provider app). Block the call and invoke it. Verify if call is retried.
+
+2. Verify if backend/network connection checks were performed, and if popup is shown in portal UXM
+
+*Expected behavior*
+1. Call has been retried
+
+2. Backend/network connection checks were performed, popup: "Something Went Wrong. Client Error Code:DCST-0012)
+
+*Actual behavior*
+
+1. Call has been retried
+
+2. Backend/network connection checks were performed,  but no popup is shown.
+
+*How to recover*
+N/A
+
+ 
+
+*Additional*
+ * *Project:* xxx
+ * *SW/HW versions:xxx
+ * *Country:* xx
+ * *Language:* xx
+ * *HSN:* xx
+ * *Environment:* Integration
+
