@@ -1,1 +1,348 @@
-
+{
+  "info": {
+    "_postman_id": "ffac0c09-a193-40c3-aa61-c8fd0cc2716b",
+    "name": "Portfolio (JSONplaceholder)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21388776"
+  },
+  "item": [
+    {
+      "name": "GET Posts",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "title_like",
+            "value": "sunt",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts?title_like=sunt",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "title_like",
+              "value": "sunt"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Comments",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Verify response status code\", () => {\r",
+              "    console.log(pm.response.code)\r",
+              "    //pm.response.to.have.status(200);\r",
+              "    pm.expect(pm.response.code).to.eql(200)\r",
+              "    pm.expect(pm.response.code).to.be.a(\"number\")})\r",
+              "\r",
+              "pm.test(\"Verify if response time is less than 160\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.lessThan(160)})\r",
+              "\r",
+              "pm.test(\"Verify if status is OK\", () => {\r",
+              "    pm.expect(pm.response.status).to.eql(\"OK\")\r",
+              "    pm.expect(pm.response.status).to.be.a(\"string\")})"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/comments?postId=2&postId=5&_limit=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "comments"
+          ],
+          "query": [
+            {
+              "key": "postId",
+              "value": "2"
+            },
+            {
+              "key": "postId",
+              "value": "5"
+            },
+            {
+              "key": "_limit",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET ALL Comments",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Verify response status code\", () => {\r",
+              "    //console.log(pm.response.code)\r",
+              "    //pm.response.to.have.status(200);\r",
+              "    pm.expect(pm.response.code).to.eql(200)\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 404])\r",
+              "    pm.expect(pm.response.code).to.be.a(\"number\")})\r",
+              "\r",
+              "pm.test(\"Verify if response time is less than 160\", () => {\r",
+              "    pm.expect(pm.response.responseTime).to.lessThan(160)})\r",
+              "\r",
+              "pm.test(\"Verify if status is OK\", () => {\r",
+              "    pm.expect(pm.response.status).to.eql(\"OK\")\r",
+              "    pm.expect(pm.response.status).to.be.a(\"string\")})\r",
+              "\r",
+              "pm.test(\"Veryfi post id\", () => {\r",
+              "    const responseBody = pm.response.json()\r",
+              "    //console.log(responseBody[1].id)\r",
+              "    pm.expect(responseBody[1].id).to.eql(2)})\r",
+              "\r",
+              "pm.test(\"Verify if comment name is no longer that 14 cases\", () => {\r",
+              "    const responseBody = pm.response.json()\r",
+              "    pm.expect(responseBody[1].name).to.have.lengthOf(14)})\r",
+              "\r",
+              "pm.test(\"Verify if object email contains @\", () => {\r",
+              "    const responseBody = pm.response.json()\r",
+              "    pm.expect(responseBody[1].email).to.contain(\"@\")})\r",
+              "\r",
+              "pm.test(\"Verify if every email contains @\", () => {\r",
+              "    const responseBody = pm.response.json()\r",
+              "    responseBody.map(object => {\r",
+              "        pm.expect(object.email).to.contain(\"@\")})})\r",
+              "\r",
+              "pm.test(\"Verify Headers element Content-type\", () => {\r",
+              "    pm.response.to.have.header(\"Content-Type\")})\r",
+              "\r",
+              "pm.test(\"Verify if Headers element Content-type contains value\", () => {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\")})"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "comments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST a post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "/* pm.test(\"Odczytanie zmiennych Globalnych\", () => {\r",
+              "   const expetedTitle = pm.globals.get(\"title\")\r",
+              "   const resBody = pm.response.json()\r",
+              "    pm.expect(resBody.title).to.eql(expetedTitle)})\r",
+              "\r",
+              "pm.test(\"Odczytanie zmiennych z kolekcji\", () => {\r",
+              "   const expetedURL = pm.collectionVariables.get(\"baseUrl\")\r",
+              "   console.log(expetedURL)})\r",
+              "\r",
+              "pm.test(\"Odczytanie zmiennych srodowiskowych\", () => {\r",
+              "   const expetedName = pm.environment.get(\"username\")\r",
+              "   console.log(expetedName)}) */\r",
+              "\r",
+              "pm.test(\"Ustawienie nowej zmiennej globalnej\", () => {\r",
+              "    pm.globals.set(\"email\", \"dupa@dupa\")})\r",
+              "\r",
+              "pm.test(\"Ustawienie nowej zmiennej globalnej\", () => {\r",
+              "    pm.globals.set(\"samochod\", \"czerwony\")})\r",
+              "\r",
+              "pm.test(\"Usunięcie zmiennej globalnej\", () => {\r",
+              "    pm.globals.unset(\"samochod\", \"czerwony\")})"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "packages": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userId\": {{userId}},\r\n    \"id\": 13,\r\n    \"title\": \"{{title}}\",\r\n    \"body\": \"{{body}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT aktualizacja User",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "function generatorEmail() {\r",
+              "    const randomNumbers = Math.floor(Math.random() * (10000000000 - 1) + 1)\r",
+              "    const randomEmail = \"test\" + randomNumbers + \"@example.com\"\r",
+              "    pm.globals.set(\"randomEmail\", randomEmail)}\r",
+              "\r",
+              "generatorEmail()\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "function wyswietlNapis2() {\r",
+              "    console.log(\"Skrypt wywołany w Tests\")}\r",
+              "\r",
+              "wyswietlNapis2()"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "    {\r\n        \"id\": 120,\r\n        \"name\": \"Leanne Graham\",\r\n        \"username\": \"{{username}}\",\r\n        \"email\": \"{{randomEmail}}\",\r\n        \"address\": {\r\n            \"street\": \"Kulas Light\",\r\n            \"suite\": \"Apt. 556\",\r\n            \"city\": \"Gwenborough\",\r\n            \"zipcode\": \"92998-3874\",\r\n            \"geo\": {\r\n                \"lat\": \"-37.3159\",\r\n                \"lng\": \"81.1496\"\r\n            }\r\n        },\r\n        \"phone\": \"1-770-736-8031 x56442\",\r\n        \"website\": \"hildegard.org\",\r\n        \"company\": {\r\n            \"name\": \"Romaguera-Crona\",\r\n            \"catchPhrase\": \"Multi-layered client-server neural-net\",\r\n            \"bs\": \"harness real-time e-markets\"\r\n        }\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "10"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://jsonplaceholder.typicode.com",
+      "type": "string"
+    }
+  ]
+}
